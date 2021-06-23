@@ -11,6 +11,7 @@ import Book from './components/Book/Book';
 function App() {
 
   const[loggedUser, setLoggedUser] = useState(null);
+  const[addShopMode, setAddShopMode] = useState(false);
 
   useEffect(()=> {
     if(AuthService.getLocal() !== null)
@@ -22,10 +23,10 @@ function App() {
   return (
     <>
     <Router>
-      <NavBar/>
+      <NavBar addShopMode={addShopMode} setAddShopMode={setAddShopMode}/>
       <Switch>
         <Route exact path='/' component={Home}/>
-        <Route exact path='/map' component={ShopMap} />
+        <Route exact path='/map' component={()=><ShopMap addShopMode={addShopMode} setAddShopMode={setAddShopMode}/>} />
         <Route exact path='/bikes' component={Bikes} />
         <Route exact path='/book' component={Book} />
       </Switch>

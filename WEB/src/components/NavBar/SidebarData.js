@@ -15,21 +15,16 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Book a bike',
-        path: '/book',
-        icon: <FaIcons.FaBook/>,
-        cName: 'nav-text'
-    },
-    {
         title: 'My bookings',
         path: '/reservations',
         icon: <GiIcons.GiOpenBook/>,
-        cName: 'nav-text'
+        cName: 'nav-text',
     },
     {
         title: 'Bikes',
         path: '/bikes',
         icon: <RiIcons.RiBikeFill/>,
         cName: 'nav-text'
-    }
+    },
+
 ]

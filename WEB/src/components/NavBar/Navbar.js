@@ -6,19 +6,23 @@ import ModalRegister from '../../components/Auth/ModalRegister'
 import AuthService from '../../services/AuthService'
 import { IconContext } from 'react-icons';
 import * as RiIcons from 'react-icons/ri';
-import './RegistrationWindow.css';
+import * as MdIcons from 'react-icons/md';
+import AddBikeDialog from '../Dialogs/AddBikeDialog';
+
 import './UserTools.css';
 import './Navbar.css';
 
 
-function Navbar() {
+function Navbar({addShopMode, setAddShopMode}) {
 
   const [sideBar, setSidebar] = useState(false);
 
   const [isLogged, setisLogged] = useState(false);
+  const [addShopButtonEnabled, setAddShopButtonEnabled] = useState(false);
   const [modalIsOpenLog, setIsOpenLog] = useState(false);
-
   const [modalIsOpenReg, setIsOpenReg] = useState(false);
+  const [showAddBikeDialog, setShowAddBikeDialog] = useState(false);
+
 
   function logout() {
     AuthService.logout();
@@ -27,7 +31,6 @@ function Navbar() {
   const showSidebar = () => {
     setSidebar(!sideBar);
   }
-
 
   return (
     <><div>
@@ -45,7 +48,7 @@ function Navbar() {
             </div>
             {SidebarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName} >
+                <li key={index} className={item.cName}>
                   <Link to={item.path}>
                     {item.icon}
                     <span>{item.title}</span>
@@ -55,6 +58,20 @@ function Navbar() {
             })}
 
               <div className='userTools' >
+                <button className="buttonR" onClick={() => setShowAddBikeDialog(true)} >
+                <MdIcons.MdAddCircle/>
+                  <span className="buttText">Add Bike</span>
+                </button>
+
+                <button  className= {"" + (addShopButtonEnabled?"buttonR":"buttonL")}
+                onClick={() => {
+                  setAddShopMode(!addShopMode)
+                  setAddShopButtonEnabled(!addShopButtonEnabled);
+                }} >
+                <MdIcons.MdAddCircle/>
+                  <span className="buttText">Add Shop</span>
+                </button>
+
                 <button className="buttonR" onClick={() => setIsOpenReg(true)} >
                 <RiIcons.RiRegisteredFill />
                   <span className="buttText">Sign up</span>
@@ -74,6 +91,7 @@ function Navbar() {
 
           </ul>
         </nav>
+        <AddBikeDialog open={showAddBikeDialog} onClose={()=>setShowAddBikeDialog(false)}/>
         <ModalRegister isOpen={modalIsOpenReg} requestClose={setIsOpenReg} setIsOpenReg={setIsOpenReg} />
         <ModalLogin isOpen={modalIsOpenLog} requestClose={setIsOpenLog} setIsOpenLog={setIsOpenLog} setisLogged={setisLogged} />
         </IconContext.Provider>
